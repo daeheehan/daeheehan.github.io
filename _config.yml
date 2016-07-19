@@ -1,5 +1,4 @@
-name: Your New Jekyll Site
-markdown: redcarpet
-pygments: true
+name: test driven me
+markdown: kramdown 
 
-baseurl: "/blog"
+baseurl: ""
