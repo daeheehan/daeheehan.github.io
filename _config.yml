@@ -1,4 +1,4 @@
 name: test driven me
 markdown: kramdown 
 
-baseurl: ""
+baseurl: "/blog"
