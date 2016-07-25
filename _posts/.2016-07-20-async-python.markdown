@@ -1,0 +1,16 @@
+---
+layout: post
+title:  "Asynchronous Python and database"
+---
+
+이 글은 [SqlAlchemy]의 개발자 [Mike Bayer가 쓴 글]을 번역한 것입니다.
+This article is translated from [Mike Bayer's original post].
+<hr />	
+
+<p>비동기 프로그래밍은 다루기 어려운 주제이다. 최근에 비동기 프로그래밍은 복합적인 주제가 되었고 나는 잘 모르는 것에 가깝지만, 최근에 나는 파이썬 스택으로 관계형 데이터베이스와 통신해야 할 일이 아주 많았고, 비동기 IO와 데이터베이스 프로그래밍, 특히 오픈스택과 SQLAlchemy에 대해 많은 이슈와 질문들을 갖게 되었다.</p>
+<p>내가 이 주제에 대해 단순한 하나의 의견을 가지고 있는 것이 아니므로, 뒤의 내용에 대해 간단히 힌트를 주고 시작할 까 한다. 나는 파이썬의 [asyncio] 라이브러리가 [SQLAlchemy]와 어느 정도 수준에서 호환 가능 할 정도로 대부분의 기능들을 포함하고 있고, 깔끔하고, 가능성있고, 재미있으며 잘 정리정돈 되어 있다고 생각한다. [asyncio]가 이제 파이썬 표준이 되었으므로, 이 호환성 레이어는 어떤 지점에선 나에게 개발할만한 흥미를 불러 일으킨다.</p>
+
+All of that said, I still think that asynchronous programming is just one potential approach to have on the shelf, and is by no means the one we should be using all the time or even most of the time, unless we are writing HTTP or chat servers or other applications that specifically need to concurrently maintain large numbers of arbitrarily slow or idle TCP connections (where by "arbitrarily" we mean, we don't care if individual connections are slow, fast, or idle, throughput can be maintained regardless). For standard business-style, CRUD-oriented database code, the approach given by asyncio is never necessary, will almost certainly hinder performance, and arguments as to its promotion of "correctness" are very questionable in terms of relational database programming. Applications that need to do non-blocking IO on the front end should leave the business-level CRUD code behind the thread pool.
+With my assumedly entirely unsurprising viewpoint revealed, let's get underway!
+
+[Mike Bayer가 쓴 글]: http://techspot.zzzeek.org/2015/02/15/asynchronous-python-and-databases/
